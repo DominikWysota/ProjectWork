@@ -1,0 +1,58 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    font-size: 10px;
+}
+
+article,
+footer,
+header,
+hgroup,
+main,
+nav,
+section {
+    display: block;
+}
+
+body {
+    background-image: url(IMG/backgr.jpg);
+    background-position-x: -600px;
+
+}
+
+.check {
+    margin: calc(50vh - 60px) auto 10px auto;
+}
+
+.field {
+    display: block;
+    margin: 10px auto;
+    height: 45px;
+    width: 90%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid white;
+    color: white;
+    font-size: 18px;
+}
+
+.submit {
+    margin: 10px auto 10px auto;
+    display: block;
+    height: 45px;
+    width: 90%;
+    border: none;
+    cursor: pointer;
+    transition: .5s;
+}
+
+.submit:hover {
+    background-color: black;
+    color: white;
+}
