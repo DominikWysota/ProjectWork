@@ -56,3 +56,22 @@ body {
     background-color: black;
     color: white;
 }
+
+.measurementsContainer {
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+.measurementsContainer div:nth-child(n) {
+    background-color: rgba(255, 255, 255, 0.342);
+    text-align: center;
+    flex: 1;
+    padding: 5px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.measurementsContainer div:nth-child(n+2) {
+    border-left: 1px solid;
+}
