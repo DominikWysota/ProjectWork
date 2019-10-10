@@ -83,6 +83,23 @@ const showResults = () => { //Add to 10 divs results
     animationsShowResults();
 }
 
+const searchAboutCity = () => {
+    for (let i = 0; i < 9; i++) {
+        let url = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${arrayTenLargestMeas[i].city}&format=json&callback=?`;
+        $.ajax({
+            url: url,
+            type: "GET",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                let item = document.querySelector(`.p${i}`);
+                item.textContent = data[2][0];
+                console.log(data);
+            }
+        })
+    }
+}
+
 //***Fuction check 10 largest count and save to new array***
 
 const checkMeasurements = () => {
@@ -116,6 +133,7 @@ const checkMeasurements = () => {
                 }
             }
             showResults();
+            searchAboutCity();
         });
 }
 

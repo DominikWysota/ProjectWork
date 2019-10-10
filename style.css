@@ -121,6 +121,10 @@ body {
     transition: max-height 0.5s ease-out;
 }
 
+.panel p {
+    padding: 10px;
+}
+
 .topDiv:after {
     font-size: 15px;
     margin-top: 17px;
