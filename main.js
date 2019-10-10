@@ -12,13 +12,14 @@ let selectedCountry = "";
 const typesMeasurements = ["pm25", "pm10", "so2", "no2", "o3", "co", "bc"];
 let measurements = "";
 
-//***Fuction check 10 largest count and save to new array***
+//Animation variables
 
 let activateAnimCheck = true;
 let backOrOut = false;
 
-//
+//Animations for top10 cities results and check imputs
 const animationsShowResults = () => {
+    //Animation for chceck imputs
     const animationCheck = () => {
         const sectionCheck = document.querySelector('.check');
         var pos = 50;
@@ -34,10 +35,10 @@ const animationsShowResults = () => {
         }
         activateAnimCheck = false;
     }
-    if (activateAnimCheck === true) {
+    if (activateAnimCheck === true) { //Check did this animation happen once
         animationCheck();
     }
-    setTimeout(function () {
+    setTimeout(function () { //Animation top10 results
         document.querySelectorAll('.topDiv').forEach((item) => {
             let pos = 100;
             let id = setInterval(frame, 1);
@@ -55,7 +56,7 @@ const animationsShowResults = () => {
     backOrOut = true;
 }
 
-const showResults = () => {
+const showResults = () => { //Add to 10 divs results 
     setTimeout(function () {
         document.querySelectorAll('.topDiv h2').forEach((item, index) => {
             item.textContent = arrayTenLargestMeas[index].city;
@@ -64,7 +65,7 @@ const showResults = () => {
             item.textContent = `${arrayTenLargestMeas[index].measurements[0].value.toFixed(2)} ${arrayTenLargestMeas[index].measurements[0].unit}`
         })
     }, 1500);
-    if (backOrOut) {
+    if (backOrOut) { //Back animation for top10 results
         document.querySelectorAll('.topDiv').forEach((item) => {
             let pos = 0;
             let id = setInterval(frame, 1);
@@ -81,6 +82,8 @@ const showResults = () => {
     }
     animationsShowResults();
 }
+
+//***Fuction check 10 largest count and save to new array***
 
 const checkMeasurements = () => {
     fetch(`https://api.openaq.org/v1/latest?country=${selectedCountry}&limit=1000&parameter=${measurements}`)
@@ -142,3 +145,20 @@ document.querySelectorAll('.measurementsContainer div:nth-child(n)').forEach(ite
         measurements = event.target.textContent;
         console.log(event.target.textContent);
     }));
+
+//Animation accordion
+
+let acc = document.getElementsByClassName("topDiv");
+let i;
+
+for (i = 0; i < acc.length; i++) {
+    acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+        } else {
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+    });
+}

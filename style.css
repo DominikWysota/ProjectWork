@@ -70,10 +70,15 @@ body {
     padding: 5px;
     text-transform: uppercase;
     cursor: pointer;
+    transition: .5s;
 }
 
 .measurementsContainer div:nth-child(n+2) {
     border-left: 1px solid;
+}
+
+.measurementsContainer div:nth-child(n):hover {
+    background-color: white;
 }
 
 /* Top boxs */
@@ -85,6 +90,7 @@ body {
     width: 90%;
     background-color: white;
     left: 100%;
+    cursor: pointer;
 }
 
 .topDiv h1 {
@@ -102,4 +108,29 @@ body {
 
 .topDiv p {
     font-size: 15px;
+}
+
+.panel {
+    width: 90%;
+    margin: auto;
+    font-size: 14px;
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+.topDiv:after {
+    font-size: 15px;
+    margin-top: 17px;
+    margin-right: 20px;
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+}
+
+.active:after {
+    content: "\2212";
 }
