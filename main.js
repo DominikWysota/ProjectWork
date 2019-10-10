@@ -84,7 +84,7 @@ const showResults = () => { //Add to 10 divs results
 }
 
 const searchAboutCity = () => {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 10; i++) {
         let url = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${arrayTenLargestMeas[i].city}&format=json&callback=?`;
         $.ajax({
             url: url,
