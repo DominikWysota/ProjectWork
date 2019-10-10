@@ -75,3 +75,31 @@ body {
 .measurementsContainer div:nth-child(n+2) {
     border-left: 1px solid;
 }
+
+/* Top boxs */
+
+.topDiv {
+    position: relative;
+    margin: 2px auto 2px auto;
+    height: 50px;
+    width: 90%;
+    background-color: white;
+    left: 100%;
+}
+
+.topDiv h1 {
+    display: inline-block;
+    margin-left: 10px;
+    line-height: 50px;
+}
+
+.topDiv h2,
+.topDiv p {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 12px;
+}
+
+.topDiv p {
+    font-size: 15px;
+}
