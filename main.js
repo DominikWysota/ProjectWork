@@ -5,6 +5,7 @@ let arrayTenLargestMeas = [];
 //Types Countries
 
 const typesCountries = ["PL", "DE", "FR", "ES"];
+const passwords = ["poland", "germany", "france", "spain"];
 let selectedCountry = "";
 
 //Types Measurements
@@ -101,7 +102,6 @@ const searchAboutCity = () => {
             success: function (data) {
                 let item = document.querySelector(`.p${i}`);
                 item.textContent = data[2][0];
-                console.log(data);
             }
         })
     }
@@ -175,7 +175,6 @@ function offAccordion() {
 
 const input = document.querySelector('.field');
 const submit = document.querySelector('.submit');
-const passwords = ["Poland", "Germany", "France", "Spain"];
 
 //**Shows results**
 
@@ -186,6 +185,7 @@ submit.addEventListener("click", () => {
     offAccordion();
     if (click) {
         document.querySelector('.container').classList.remove('container');
+        document.querySelector('.heading').remove();
         click = false;
     }
     if (!emptyFieldMeasurements && input.value == "") {
@@ -201,10 +201,9 @@ submit.addEventListener("click", () => {
         document.querySelector('.infoInput').textContent = "Please enter name country (Poland, Germany, France or Spain)";
         return false;
     }
-    console.log(input.value);
     let isOrIsnt = 0;
     passwords.forEach((password, index) => {
-        if (password === input.value) {
+        if (password === input.value.toLowerCase()) {
             document.querySelector('.infoInput').textContent = "";
             selectedCountry = typesCountries[index];
             arrayTenLargestMeas = [];
@@ -231,7 +230,6 @@ document.querySelectorAll('.measurementsContainer div:nth-child(n)').forEach(ite
         document.querySelector('.infoMeas').textContent = "";
         emptyFieldMeasurements = true;
         measurements = event.target.textContent;
-        console.log(event.target.textContent);
     }));
 
 accordion();
