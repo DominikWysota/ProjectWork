@@ -67,7 +67,7 @@ const showResults = () => { //Add to 10 divs results
             item.textContent = arrayTenLargestMeas[index].city;
         })
         document.querySelectorAll('.topDiv p').forEach((item, index) => {
-            item.textContent = `${arrayTenLargestMeas[index].measurements[0].value.toFixed(2)} ${arrayTenLargestMeas[index].measurements[0].unit}`
+            item.textContent = `${arrayTenLargestMeas[index].value.toFixed(2)} ${arrayTenLargestMeas[index].unit}`
         })
     }, 1500);
     if (backOrOut) { //Back animation for top10 results div
@@ -110,14 +110,16 @@ const searchAboutCity = () => {
 //***Fuction check 10 largest count and save to new array***
 
 const checkMeasurements = () => {
-    fetch(`https://api.openaq.org/v1/latest?country=${selectedCountry}&limit=1000&parameter=${measurements}`)
+    // !!!! I don't know why, if i seek out in data Latest, it works well only for Polish but other coutries's city have Name and Surname (In Germany) some people
+    // In spain and france i have name lands in city or name departaments, so i seek out in Measurements data because there are some exact data city
+    fetch(`https://api.openaq.org/v1/measurements?country=${selectedCountry}&limit=1000&parameter=${measurements}`)
         .then(resp => resp.json())
         .then(resp => {
             //Create temporary array
             let arrayTenLargestCount = [];
             //Sort according to value measurements
             resp.results.sort((a, b) => {
-                return b.measurements[0].value - a.measurements[0].value;
+                return b.value - a.value;
             });
             for (let i = 0; i < resp.results.length; i++) {
                 arrayTenLargestCount[i] = resp.results[i];
@@ -152,8 +154,14 @@ const passwords = ["Poland", "Germany", "France", "Spain"];
 
 //**Shows results**
 
+let click = true;
+
 //*Check name and show results*
 submit.addEventListener("click", () => {
+    if (click) {
+        document.querySelector('.container').classList.remove('container');
+        click = false;
+    }
     if (!emptyFieldMeasurements && input.value == "") {
         document.querySelector('.measurementsContainer').style.border = "1px solid red";
         document.querySelector('.infoInput').textContent = "Please enter name country (Poland, Germany, France or Spain)";
