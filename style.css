@@ -22,7 +22,11 @@ section {
 body {
     background-image: url(IMG/backgr.jpg);
     background-position-x: -600px;
+}
 
+.container {
+    height: 100vh;
+    overflow: hidden;
 }
 
 .check {
@@ -137,4 +141,12 @@ body {
 
 .active:after {
     content: "\2212";
+}
+
+.infoMeas,
+.infoInput {
+    color: rgb(253, 13, 13);
+    font-size: 13px;
+    width: 90%;
+    margin: auto;
 }

@@ -1,4 +1,4 @@
-//Need Data
+//Needed Data
 
 let arrayTenLargestMeas = [];
 
@@ -16,6 +16,11 @@ let measurements = "";
 
 let activateAnimCheck = true;
 let backOrOut = false;
+
+//Validation
+
+let emptyFieldImput = false;
+let emptyFieldMeasurements = false;
 
 //Animations for top10 cities results and check imputs
 const animationsShowResults = () => {
@@ -38,7 +43,7 @@ const animationsShowResults = () => {
     if (activateAnimCheck === true) { //Check did this animation happen once
         animationCheck();
     }
-    setTimeout(function () { //Animation top10 results
+    setTimeout(function () { //Animation top10 results div
         document.querySelectorAll('.topDiv').forEach((item) => {
             let pos = 100;
             let id = setInterval(frame, 1);
@@ -65,7 +70,7 @@ const showResults = () => { //Add to 10 divs results
             item.textContent = `${arrayTenLargestMeas[index].measurements[0].value.toFixed(2)} ${arrayTenLargestMeas[index].measurements[0].unit}`
         })
     }, 1500);
-    if (backOrOut) { //Back animation for top10 results
+    if (backOrOut) { //Back animation for top10 results div
         document.querySelectorAll('.topDiv').forEach((item) => {
             let pos = 0;
             let id = setInterval(frame, 1);
@@ -82,6 +87,8 @@ const showResults = () => { //Add to 10 divs results
     }
     animationsShowResults();
 }
+
+//Check information about city in MediaWiki
 
 const searchAboutCity = () => {
     for (let i = 0; i < 10; i++) {
@@ -137,7 +144,7 @@ const checkMeasurements = () => {
         });
 }
 
-//***Funtion chceck what is your nationality DOKOŃCZ JEŚLI NIE MA TEGO KRAJU***
+//***Funtion check, show results and validation***
 
 const input = document.querySelector('.field');
 const submit = document.querySelector('.submit');
@@ -147,19 +154,48 @@ const passwords = ["Poland", "Germany", "France", "Spain"];
 
 //*Check name and show results*
 submit.addEventListener("click", () => {
+    if (!emptyFieldMeasurements && input.value == "") {
+        document.querySelector('.measurementsContainer').style.border = "1px solid red";
+        document.querySelector('.infoInput').textContent = "Please enter name country (Poland, Germany, France or Spain)";
+        document.querySelector('.infoMeas').textContent = "Please check parameters";
+        return false;
+    } else if (!emptyFieldMeasurements) {
+        document.querySelector('.measurementsContainer').style.border = "1px solid red";
+        document.querySelector('.infoMeas').textContent = "Please check parameters";
+        return false;
+    } else if (input.value == "") {
+        document.querySelector('.infoInput').textContent = "Please enter name country (Poland, Germany, France or Spain)";
+        return false;
+    }
     console.log(input.value);
+    let isOrIsnt = 0;
     passwords.forEach((password, index) => {
         if (password === input.value) {
+            document.querySelector('.infoInput').textContent = "";
             selectedCountry = typesCountries[index];
             arrayTenLargestMeas = [];
             checkMeasurements();
+            return true;
+        } else {
+            isOrIsnt++
         }
     })
+    if (isOrIsnt == passwords.length) {
+        document.querySelector('.infoInput').textContent = "Please enter name country (Poland, Germany, France or Spain)";
+        return false;
+    }
 });
 
-//**Check measurements DOKOŃCZ KOLOROWANKO**
+//**Check measurements**
 document.querySelectorAll('.measurementsContainer div:nth-child(n)').forEach(item =>
     item.addEventListener('click', () => {
+        document.querySelectorAll('.measurementsContainer div:nth-child(n)').forEach((deleteColor) => {
+            deleteColor.style.background = "rgba(255, 255, 255, 0.342)";
+        });
+        item.style.background = "white";
+        document.querySelector('.measurementsContainer').style.border = "none";
+        document.querySelector('.infoMeas').textContent = "";
+        emptyFieldMeasurements = true;
         measurements = event.target.textContent;
         console.log(event.target.textContent);
     }));
