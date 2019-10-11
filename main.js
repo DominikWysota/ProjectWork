@@ -146,6 +146,31 @@ const checkMeasurements = () => {
         });
 }
 
+//Animation accordion
+
+const accordion = () => {
+    let acc = document.getElementsByClassName("topDiv");
+
+    for (let i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            let panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+}
+
+function offAccordion() {
+    document.querySelectorAll(".topDiv").forEach((e) => {
+        let panel = e.nextElementSibling;
+        panel.style.maxHeight = panel.scrollTop + "px";
+        panel.style.maxHeight = null;
+    });
+}
+
 //***Funtion check, show results and validation***
 
 const input = document.querySelector('.field');
@@ -158,6 +183,7 @@ let click = true;
 
 //*Check name and show results*
 submit.addEventListener("click", () => {
+    offAccordion();
     if (click) {
         document.querySelector('.container').classList.remove('container');
         click = false;
@@ -208,19 +234,4 @@ document.querySelectorAll('.measurementsContainer div:nth-child(n)').forEach(ite
         console.log(event.target.textContent);
     }));
 
-//Animation accordion
-
-let acc = document.getElementsByClassName("topDiv");
-let i;
-
-for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
-        } else {
-            panel.style.maxHeight = panel.scrollHeight + "px";
-        }
-    });
-}
+accordion();

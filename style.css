@@ -21,12 +21,17 @@ section {
 
 body {
     background-image: url(IMG/backgr.jpg);
-    background-position-x: -600px;
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 .container {
     height: 100vh;
     overflow: hidden;
+}
+
+.widthContainer {
+    width: 100%;
 }
 
 .check {
@@ -65,6 +70,11 @@ body {
     display: flex;
     width: 90%;
     margin: auto;
+}
+
+.measurementsContainer h2 {
+    height: 100%;
+    width: 100%;
 }
 
 .measurementsContainer div:nth-child(n) {
@@ -149,4 +159,19 @@ body {
     font-size: 13px;
     width: 90%;
     margin: auto;
+}
+
+@media screen and (min-width: 500px) {
+
+    .widthContainer {
+        margin: auto;
+        width: 1024px;
+        height: 100vh;
+    }
+
+    .check,
+    .topDiv,
+    .panel {
+        width: 50%;
+    }
 }
