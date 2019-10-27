@@ -15,7 +15,7 @@ Here is a working live demo: https://dominikwysota.github.io/ProjectWork/
 
 ## Built with
 
-- [Open AQ Platform API](https://docs.openaq.org/#api-_) - Open AQ API allows you to check measurements contaminateded in Europe's
+- [Open AQ Platform API](https://docs.openaq.org/#api-_) - Open AQ API allows you to check measurements contaminated in Europe's
 cities
 - [MediaWiki API](https://www.mediawiki.org/wiki/API:Query) - MediaWiki allows you to search information by phrase or name.
 - [jQuery - Ajax](http://www.w3schools.com/jquery/jquery_ref_ajax.asp) - jQuery simplifies HTML document traversing,

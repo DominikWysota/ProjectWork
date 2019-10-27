@@ -1,35 +1,26 @@
-//Needed Data
-
 let arrayTenLargestMeas = [];
-
-//Types Countries
 
 const typesCountries = ["PL", "DE", "FR", "ES"];
 const passwords = ["poland", "germany", "france", "spain"];
 let selectedCountry = "";
 
-//Types Measurements
 
 const typesMeasurements = ["pm25", "pm10", "so2", "no2", "o3", "co", "bc"];
-let measurements = "";
+let measurement = "";
 
-//Animation variables
 
 let activateAnimCheck = true;
 let backOrOut = false;
 
-//Validation
 
 let emptyFieldImput = false;
 let emptyFieldMeasurements = false;
 
-//Animations for top10 cities results and check imputs
 const animationsShowResults = () => {
-    //Animation for chceck imputs
     const animationCheck = () => {
         const sectionCheck = document.querySelector('.check');
-        var pos = 50;
-        var id = setInterval(frame, 10);
+        let pos = 50;
+        let id = setInterval(frame, 10);
 
         function frame() {
             if (pos == 10) {
@@ -41,10 +32,10 @@ const animationsShowResults = () => {
         }
         activateAnimCheck = false;
     }
-    if (activateAnimCheck === true) { //Check did this animation happen once
+    if (activateAnimCheck === true) {
         animationCheck();
     }
-    setTimeout(function () { //Animation top10 results div
+    setTimeout(function () {
         document.querySelectorAll('.topDiv').forEach((item) => {
             let pos = 100;
             let id = setInterval(frame, 1);
@@ -62,7 +53,7 @@ const animationsShowResults = () => {
     backOrOut = true;
 }
 
-const showResults = () => { //Add to 10 divs results 
+const showResults = () => {
     setTimeout(function () {
         document.querySelectorAll('.topDiv h2').forEach((item, index) => {
             item.textContent = arrayTenLargestMeas[index].city;
@@ -71,7 +62,7 @@ const showResults = () => { //Add to 10 divs results
             item.textContent = `${arrayTenLargestMeas[index].value.toFixed(2)} ${arrayTenLargestMeas[index].unit}`
         })
     }, 1500);
-    if (backOrOut) { //Back animation for top10 results div
+    if (backOrOut) {
         document.querySelectorAll('.topDiv').forEach((item) => {
             let pos = 0;
             let id = setInterval(frame, 1);
@@ -89,8 +80,6 @@ const showResults = () => { //Add to 10 divs results
     animationsShowResults();
 }
 
-//Check information about city in MediaWiki
-
 const searchAboutCity = () => {
     for (let i = 0; i < 10; i++) {
         let url = `https://en.wikipedia.org/w/api.php?action=opensearch&search=${arrayTenLargestMeas[i].city}&format=json&callback=?`;
@@ -107,17 +96,11 @@ const searchAboutCity = () => {
     }
 }
 
-//***Fuction check 10 largest count and save to new array***
-
 const checkMeasurements = () => {
-    // !!!! I don't know why, if i seek out in data Latest, it works well only for Polish but other coutries's city have Name and Surname (In Germany) some people
-    // In spain and france i have name lands in city or name departaments, so i seek out in Measurements data because there are some exact data city
-    fetch(`https://api.openaq.org/v1/measurements?country=${selectedCountry}&limit=1000&parameter=${measurements}`)
+    fetch(`https://api.openaq.org/v1/measurements?country=${selectedCountry}&limit=1000&parameter=${measurement}`)
         .then(resp => resp.json())
         .then(resp => {
-            //Create temporary array
             let arrayTenLargestCount = [];
-            //Sort according to value measurements
             resp.results.sort((a, b) => {
                 return b.value - a.value;
             });
@@ -125,19 +108,18 @@ const checkMeasurements = () => {
                 arrayTenLargestCount[i] = resp.results[i];
             }
 
-            //Download the largest measurements with every city
             for (let i = 0; i < arrayTenLargestCount.length; i++) {
                 if (arrayTenLargestMeas.length >= 1) {
                     let g = true;
                     for (let j = 0; j < arrayTenLargestMeas.length; j++) {
                         if (arrayTenLargestMeas[j].city == arrayTenLargestCount[i].city) {
-                            g = false; // Check if it exist, if yes, assign false
+                            g = false;
                         }
                     }
-                    if (g) { //If g = true, do it
+                    if (g) {
                         arrayTenLargestMeas.push(arrayTenLargestCount[i]);
                     }
-                } else if (arrayTenLargestMeas.length == 0) { // index is 0, so i assign first,becacuse it doesnt have to chceck
+                } else if (arrayTenLargestMeas.length == 0) {
                     arrayTenLargestMeas.push(arrayTenLargestCount[i]);
                 }
             }
@@ -145,8 +127,6 @@ const checkMeasurements = () => {
             searchAboutCity();
         });
 }
-
-//Animation accordion
 
 const accordion = () => {
     let acc = document.getElementsByClassName("topDiv");
@@ -171,17 +151,12 @@ function offAccordion() {
     });
 }
 
-//***Funtion check, show results and validation***
-
-const input = document.querySelector('.field');
 const submit = document.querySelector('.submit');
-
-//**Shows results**
 
 let click = true;
 
-//*Check name and show results*
 submit.addEventListener("click", () => {
+    const input = document.querySelector('.field');
     offAccordion();
     if (click) {
         document.querySelector('.container').classList.remove('container');
@@ -219,7 +194,6 @@ submit.addEventListener("click", () => {
     }
 });
 
-//**Check measurements**
 document.querySelectorAll('.measurementsContainer div:nth-child(n)').forEach(item =>
     item.addEventListener('click', () => {
         document.querySelectorAll('.measurementsContainer div:nth-child(n)').forEach((deleteColor) => {
@@ -229,7 +203,7 @@ document.querySelectorAll('.measurementsContainer div:nth-child(n)').forEach(ite
         document.querySelector('.measurementsContainer').style.border = "none";
         document.querySelector('.infoMeas').textContent = "";
         emptyFieldMeasurements = true;
-        measurements = event.target.textContent;
+        measurement = event.target.textContent;
     }));
 
 accordion();
