@@ -23,6 +23,7 @@ First you need to clone the https://github.com/DominikWysota/ProjectWork.git
 ### 2. Open
 Second you need open index.html
 ```
+cd ProjectWork
   .\index.html
 ```
 
