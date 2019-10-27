@@ -13,6 +13,20 @@
 
 Here is a working live demo: https://dominikwysota.github.io/ProjectWork/
 
+## Basic setup
+
+### 1. Clone the project
+First you need to clone the https://github.com/DominikWysota/ProjectWork.git
+```
+  git clone https://github.com/DominikWysota/ProjectWork.git
+```
+### 2. Open
+Second you need open index.html
+```
+  .\index.html
+```
+
+
 ## Built with
 
 - [Open AQ Platform API](https://docs.openaq.org/#api-_) - Open AQ API allows you to check measurements contaminated in Europe's
